@@ -10,7 +10,7 @@ void execmd(char **argv)
         command = argv[0];
 
         path_command = get_locations(command);
-        if (execve(command, argv, NULL))
+        if (execve(path_command, argv, NULL))
         {
             perror("Error: ");
         }
