@@ -2,7 +2,7 @@
 
 int main(int ac, char **argv)
 {
-    char *prompt = "(Shell) $";
+    char *prompt = "($)";
     char *command= NULL;
     size_t b = 0;
     ssize_t read_char;
