@@ -13,35 +13,35 @@ int main(int ac, char **argv)
     char *tokens;
 
 
-    // declaring void variables
+    /* declaring void variables*/
 
     (void)ac;
 
-    // infinte loop
+    /* infinte loop*/
     while (1) {
         printf("%s", prompt);
-        read_char = get(&command, &b, stdin);
+        read_char = getline(&command, &b, stdin);
 
-        //check if get function failed or reashed EOF
+        /*check if get function failed or reashed EOF*/
         if (read_char == -1)
         {
             printf("Exiting Shell......\n");
             return (-1);
         }
 
-        // allocate space for copying the  executed
+        /* allocate space for copying the  executed*/
         copy_comands = malloc(sizeof(char) * read_char);
         if (copy_comands == NULL)
         {
             perror("Error!! : memory allocation Error");
             return (-1);
         }
-        // copy  to copy_comands
+        /* copy  to copy_comands*/
         strcpy(copy_comands, command);
         
         /*cut thed string  into an array of words*/
         
-        //calculate the number of tokens
+        /*calculate the number of tokens*/
         tokens = strtok(command, delim);
 
         while (tokens != NULL)
@@ -65,7 +65,7 @@ int main(int ac, char **argv)
         /**execute the command line */
         execmd(argv);
     } 
-    // free the allocated memory after every execution
+    /* free the allocated memory after every execution*/
         free(command);
         free(copy_comands);
     return 0;

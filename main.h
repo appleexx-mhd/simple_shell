@@ -8,4 +8,4 @@
 
 void execmd(char **argv);
 
-#endif //MAIN_H
+#endif /*MAIN_H*/
