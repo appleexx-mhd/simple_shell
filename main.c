@@ -1,26 +1,36 @@
-#include "shell.h"
+#include "shell.c"
 
-void sh_loop(void)
+void lsh_loop(void)
 {
-    char **line;
-    char **args;
-    int status;
+  char *line;
+  char **args;
+  int status;
 
-    do
-    {
-        printf("$ ");
-        line = lsh_getline();
-        args = lsh_split_line;
-        status = lsh_execute(args);
+  do {
+    printf("> ");
+    line = lsh_read_line();
+    args = lsh_split_line(line);
+    status = lsh_execute(args);
 
-        free(line);
-        free(args);
-    } while (status);
-    
+    free(line);
+    free(args);
+  } while (status);
 }
+
+/**
+   @brief Main entry point.
+   @param argc Argument count.
+   @param argv Argument vector.
+   @return status code
+ */
 int main(int argc, char **argv)
 {
-    sh_loop();
-    /*Perform any shutdown/cleanup*/
-    return EXIT_SUCCESS;    
+  // Load config files, if any.
+
+  // Run command loop.
+  lsh_loop();
+
+  // Perform any shutdown/cleanup.
+
+  return EXIT_SUCCESS;
 }

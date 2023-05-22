@@ -1,11 +1,16 @@
 #include "shell.h"
 
+/**
+   @brief Execute shell built-in or launch program.
+   @param args Null terminated list of arguments.
+   @return 1 if the shell should continue running, 0 if it should terminate
+ */
 int lsh_execute(char **args)
 {
   int i;
 
   if (args[0] == NULL) {
-    /*An empty command was entered.*/
+    // An empty command was entered.
     return 1;
   }
 

@@ -1,5 +1,15 @@
-#include "shell.h"
+#include "shell.c"
 
+/*
+  Function Declarations for builtin shell commands:
+ */
+int lsh_cd(char **args);
+int lsh_help(char **args);
+int lsh_exit(char **args);
+
+/*
+  List of builtin commands, followed by their corresponding functions.
+ */
 char *builtin_str[] = {
   "cd",
   "help",
@@ -19,6 +29,12 @@ int lsh_num_builtins() {
 /*
   Builtin function implementations.
 */
+
+/**
+   @brief Builtin command: change directory.
+   @param args List of args.  args[0] is "cd".  args[1] is the directory.
+   @return Always returns 1, to continue executing.
+ */
 int lsh_cd(char **args)
 {
   if (args[1] == NULL) {
@@ -31,6 +47,11 @@ int lsh_cd(char **args)
   return 1;
 }
 
+/**
+   @brief Builtin command: print help.
+   @param args List of args.  Not examined.
+   @return Always returns 1, to continue executing.
+ */
 int lsh_help(char **args)
 {
   int i;
@@ -46,6 +67,11 @@ int lsh_help(char **args)
   return 1;
 }
 
+/**
+   @brief Builtin command: exit.
+   @param args List of args.  Not examined.
+   @return Always returns 0, to terminate execution.
+ */
 int lsh_exit(char **args)
 {
   return 0;
