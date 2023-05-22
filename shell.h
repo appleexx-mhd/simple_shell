@@ -16,5 +16,10 @@
 char **lsh_split_line(char *line);
 char *lsh_getline(void);
 int lsh_launch(char **args);
+int lsh_execute(char **args)
+/*function declarations for builtin shell commands*/
+int lsh_cd(char **args);
+int lsh_help(char **args);
+int lsh_exit(char **args);
 
 #endif
