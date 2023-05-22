@@ -5,8 +5,13 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <stdio.h>
 #include <string.h>
+=======
+#include <sys\types.h>
+#include <sys/wait.h>
+>>>>>>> b88bd12fefe14a6504d5f1181baf833b02ebef17
 
 /*function to built shell*/
 char *lsh_read_line(void);
