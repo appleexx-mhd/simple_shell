@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys\types.h>
-#include <sys/wait.h>
+/*#include <sys/wait.h>*/
 
 #define LSH_RL_BUFSIZE 1024
 #define LSH_TOK_BUFSIZE 64
