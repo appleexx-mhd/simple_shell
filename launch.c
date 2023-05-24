@@ -3,7 +3,7 @@
 /**
  * lsh_launch - function for launching the shell
  * @args: list of arguments
- * Return: Always reaturns 1, to continue execution.
+ * Return: Always returns 1, to continue execution.
  */
 int lsh_launch(char **args)
 {
