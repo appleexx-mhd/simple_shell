@@ -3,7 +3,7 @@
 #define LSH_TOK_BUFSIZE 64
 #define LSH_TOK_DELIM " \t\r\n\a"
 /**
- * lsh_split_line - splite the line from stdin
+ * lsh_split_line - splits the line from stdin into tokens
  * @line: array to store the input
  * Return: NULL-terminated array of tokens
  */

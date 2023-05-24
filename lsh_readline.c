@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
- * lsh_read_line - function that read from stdin
- * Return: return the line from stdin
+ * lsh_read_line - function that reads input from stdin
+ * Return: the line from stdin
  */
 char *lsh_read_line(void)
 {

@@ -22,8 +22,8 @@ int (*builtin_func[]) (char **) = {
 	&lsh_exit
 };
 /**
- * lsh_num_builtins - giving the total amount of storage required
- * Return: the storage required
+ * lsh_num_builtins - function to calculate the total number of built-in commands
+ * Return: the total number of built-in commands
  */
 int lsh_num_builtins(void)
 {
@@ -35,7 +35,7 @@ int lsh_num_builtins(void)
 */
 
 /**
- * lsh_cd - function for builting command
+ * lsh_cd - function for the "cd" built-in command
  * @args: list of args.
  * Return: Always returns 1, to continue executing.
  */
@@ -56,11 +56,11 @@ int lsh_cd(char **args)
 }
 
 /**
- * lsh_help - function for  print help.
+ * lsh_help - function for prining the help message
  * @args: array of args
  * Return: Always returns 1, to continue executing.
  */
-int lsh_help(char **args)
+int lsh_help(char __attribute__ ((unused)) **args)
 {
 	int i;
 
@@ -75,21 +75,21 @@ int lsh_help(char **args)
 }
 
 /**
- * lsh_exit - for exit the simple shell.
+ * lsh_exit - function for exiting the simple shell.
  * @args: list of args
  * Return: Always returns 0, to terminate execution.
  */
-int lsh_exit(char **args)
+int lsh_exit(char __attribute__ ((unused)) **args)
 {
 	return (0);
 }
 
 /**
- * lsh_execute - for exucuting the shell commands
+ * lsh_execute - function for exucuting shell commands
  * @args: list of args
  * Return: 1 if the shell should continue running, 0 if it should terminate
  */
-int lsh_execute(__attribute__((unused)) char **args)
+int lsh_execute(char **args)
 {
 	int i;
 
