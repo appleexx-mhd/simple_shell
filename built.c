@@ -60,7 +60,7 @@ int lsh_cd(char **args)
  * @args: array of args
  * Return: Always returns 1, to continue executing.
  */
-int lsh_help(char **args)
+int lsh_help(char __attribute__ ((unused)) **args)
 {
 	int i;
 
@@ -79,7 +79,7 @@ int lsh_help(char **args)
  * @args: list of args
  * Return: Always returns 0, to terminate execution.
  */
-int lsh_exit(char **args)
+int lsh_exit(char __attribute__ ((unused)) **args)
 {
 	return (0);
 }
@@ -89,7 +89,7 @@ int lsh_exit(char **args)
  * @args: list of args
  * Return: 1 if the shell should continue running, 0 if it should terminate
  */
-int lsh_execute(__attribute__((unused)) char **args)
+int lsh_execute(char **args)
 {
 	int i;
 

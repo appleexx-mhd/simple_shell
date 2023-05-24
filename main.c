@@ -26,7 +26,7 @@ void lsh_loop(void)
  * @argv: Argument vector.
  * Return: Always 0 On Success
  */
-int main(int argc, char **argv)
+int main(int __attribute__ ((unused)) argc, char __attribute__ ((unused)) **argv)
 {
 	/* Load config files, if any.*/
 
