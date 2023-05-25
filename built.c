@@ -1,110 +1,96 @@
 #include "shell.h"
 
-/*
- * Function Declarations for builtin shell commands:
- */
-int lsh_cd(char **args);
-int lsh_help(char **args);
-int lsh_exit(char **args);
-
-/*
- * List of builtin commands, followed by their corresponding functions.
- */
-char *builtin_str[] = {
-	"cd",
-	"help",
-	"exit"
-};
-
-int (*builtin_func[]) (char **) = {
-	&lsh_cd,
-	&lsh_help,
-	&lsh_exit
-};
 /**
- * lsh_num_builtins - function to calculate the total number of built-in commands
- * Return: the total number of built-in commands
+ * _myexit - exits the shell
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ * Return: exits with a given exit status (0) if info->argv[0] != "exit"
  */
-int lsh_num_builtins(void)
+int _myexit(info_t *info)
 {
-	return (sizeof(builtin_str) / sizeof(char *));
+	int exitcheck;
+
+	if (info->argv[1]) /* If there is an exit argument */
+	{
+		exitcheck = _erratoi(info->argv[1]);
+		if (exitcheck == -1)
+		{
+			info->status = 2;
+			print_error(info, "Illegal number: ");
+			_eputs(info->argv[1]);
+			_eputchar('\n');
+			return (1);
+		}
+		info->err_num = _erratoi(info->argv[1]);
+		return (-2);
+	}
+	info->err_num = -1;
+	return (-2);
 }
 
-/*
- * Builtin function implementations.
-*/
-
 /**
- * lsh_cd - function for the "cd" built-in command
- * @args: list of args.
- * Return: Always returns 1, to continue executing.
+ * _mycd - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
+ *         constant function prototype.
+ * Return: Always 0
  */
-int lsh_cd(char **args)
+int _mycd(info_t *info)
 {
-	if (args[1] == NULL)
+	char *s, *dir, buffer[1024];
+	int chdir_ret;
+
+	s = getcwd(buffer, 1024);
+	if (!s)
+		_puts("TODO: >>getcwd failure emsg here<<\n");
+	if (!info->argv[1])
 	{
-		fprintf(stderr, "lsh: expected argument to \"cd\"\n");
+		dir = _getenv(info, "HOME=");
+		if (!dir)
+			chdir_ret = /* TODO: what should this be? */
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+		else
+			chdir_ret = chdir(dir);
+	}
+	else if (_strcmp(info->argv[1], "-") == 0)
+	{
+		if (!_getenv(info, "OLDPWD="))
+		{
+			_puts(s);
+			_putchar('\n');
+			return (1);
+		}
+		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
+		chdir_ret = /* TODO: what should this be? */
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+	}
+	else
+		chdir_ret = chdir(info->argv[1]);
+	if (chdir_ret == -1)
+	{
+		print_error(info, "can't cd to ");
+		_eputs(info->argv[1]), _eputchar('\n');
 	}
 	else
 	{
-		if (chdir(args[1]) != 0)
-		{
-			perror("lsh");
-		}
+		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
+		_setenv(info, "PWD", getcwd(buffer, 1024));
 	}
-	return (1);
-}
-
-/**
- * lsh_help - function for prining the help message
- * @args: array of args
- * Return: Always returns 1, to continue executing.
- */
-int lsh_help(char __attribute__ ((unused)) **args)
-{
-	int i;
-
-	printf("Type program names and arguments, and hit enter.\n");
-	printf("The following are built in:\n");
-	for (i = 0; i < lsh_num_builtins(); i++)
-	{
-		printf("  %s\n", builtin_str[i]);
-	}
-	printf("Use the man command for information on other programs.\n");
-	return (1);
-}
-
-/**
- * lsh_exit - function for exiting the simple shell.
- * @args: list of args
- * Return: Always returns 0, to terminate execution.
- */
-int lsh_exit(char __attribute__ ((unused)) **args)
-{
 	return (0);
 }
 
 /**
- * lsh_execute - function for exucuting shell commands
- * @args: list of args
- * Return: 1 if the shell should continue running, 0 if it should terminate
+ * _myhelp - prints the help message
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ * Return: Always 0
  */
-int lsh_execute(char **args)
+int _myhelp(info_t *info)
 {
-	int i;
+	char **arg_array;
 
-	if (args[0] == NULL)
-	{
-		/* An empty command was entered.*/
-		return (1);
-	}
-
-	for (i = 0; i < lsh_num_builtins(); i++)
-	{
-		if (strcmp(args[0], builtin_str[i]) == 0)
-		{
-			return ((*builtin_func[i])(args));
-		}
-	}
-	return (lsh_launch(args));
+	arg_array = info->argv;
+	_puts("help call works. Function not yet implemented \n");
+	if (0)
+		_puts(*arg_array); /* temp att_unused workaround */
+	return (0);
 }
